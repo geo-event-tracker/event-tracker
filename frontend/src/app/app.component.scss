@@ -1,0 +1,13 @@
+#events {
+  position: relative;
+}
+
+#map-wrapper {
+  position: fixed;
+  height: calc( 100vh - 60px );;
+  width: 100vw;
+}
+
+#list-wrapper {
+  position: absolute;
+}
