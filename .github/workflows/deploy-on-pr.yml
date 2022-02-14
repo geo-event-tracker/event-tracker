@@ -9,7 +9,7 @@ jobs:
   fileChanges:
     name: Check modified files
     outputs:
-      run_job: ${{ steps.changes.outputs.src }}
+      run_job: ${{ steps.changes.outputs.frontend }}
     runs-on: ubuntu-latest
     steps:
       - name: check modified files
