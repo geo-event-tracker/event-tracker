@@ -1,0 +1,56 @@
+name: Deploy on PR
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  fileChanges:
+    name: Check modified files
+    outputs:
+      run_job: ${{ steps.changes.outputs.frontend }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: check modified files
+        uses: dorny/paths-filter@v2.10.2
+        id: changes
+        with:
+          filters: |
+            frontend:
+              - 'frontend/**'
+  
+  deployPRFrontendDraft:
+    name: Deploy front-end draft to Netlify
+    needs: fileChanges
+    if: needs.fileChanges.outputs.run_job == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+        
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:ci -w frontend
+
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './frontend/dist/event-tracker-frontend'
+          deploy-message: "Deploy from GitHub Actions"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          production-deploy: false
+          enable-commit-comment: false
+          enable-commit-status: false
+          alias: deploy-preview-${{ github.event.number }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
