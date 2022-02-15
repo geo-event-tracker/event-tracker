@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+// Why the fuck does Angular body have a default margin?
+body {
+  margin: 0;
+  padding: 0;
+}
