@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, Observable } from 'rxjs';
-import { isDefined } from 'src/app/util/filter-callbacks';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IGeoEvent } from '~model/interfaces/geo-event.interface';
 
 @Injectable({
@@ -34,10 +33,9 @@ export class GeoEventsService {
     return this.mockGeoEvents$.asObservable();
   }
 
-  get(id: IGeoEvent['id']): Observable<IGeoEvent> {
+  get(id: IGeoEvent['id']): Observable<IGeoEvent | undefined> {
     return this.mockGeoEvents$.pipe(
-      map((geoEvents) => geoEvents.find((geoEvent) => geoEvent.id === id)),
-      filter(isDefined)
+      map((geoEvents) => geoEvents.find((geoEvent) => geoEvent.id === id))
     );
   }
 
