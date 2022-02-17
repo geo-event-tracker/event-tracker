@@ -60,7 +60,7 @@ export class EventListComponent implements OnInit {
   }
 
   getAddress = (geoEvent: any) => {
-    const { address, center } = geoEvent; console.log(geoEvent)
+    const { address, center } = geoEvent;
     if (address) return address;
     return `${center.longitude} ${center.latitude}`
   }
