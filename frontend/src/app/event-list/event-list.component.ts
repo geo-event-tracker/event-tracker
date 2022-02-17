@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IGeoEvent } from '~model/interfaces/geo-event.interface';
 import { GeoEventsService } from '../modules/data/services/geo-events.service';
 
 @Component({
@@ -12,4 +13,8 @@ export class EventListComponent implements OnInit {
   constructor(private readonly geoEventsService: GeoEventsService) {}
 
   ngOnInit(): void {}
+
+  deleteGeoEvent(geoEvent: IGeoEvent): Promise<void> {
+    return this.geoEventsService.delete(geoEvent.id);
+  }
 }
