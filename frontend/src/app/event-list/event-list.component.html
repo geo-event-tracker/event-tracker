@@ -1,3 +1,18 @@
 <div id="event-list">
-  <div>event-list placeholder</div>
+  <div *ngFor="let geoEvent of geoEvents$;">
+    <div id="geo-event-{{ geoEvent.id }}" class="event-card">
+
+      <img src="assets/location-pin.svg" />
+
+      <div class="event-card-content">
+        <div>
+          {{ geoEvent.timePassed }} | <span>2022.02.15 15:30</span> | <span>1 Street, City Name, Country</span>
+        </div>
+        <div>
+          A short description on what this event is
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
