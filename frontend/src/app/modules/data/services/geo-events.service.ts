@@ -9,7 +9,7 @@ export class GeoEventsService {
   private readonly mockGeoEvents$ = new BehaviorSubject<IGeoEvent[]>([
     {
       id: '0',
-      center: {
+      coordinates: {
         latitude: 48.858093,
         longitude: 2.294694,
       },
@@ -20,7 +20,7 @@ export class GeoEventsService {
       id: '1',
       title: 'End of construction of the Eiffel Tower',
       timestamp: new Date(1887, 3, 1889),
-      center: {
+      coordinates: {
         latitude: 48.858093,
         longitude: 2.294694,
       },
@@ -40,7 +40,10 @@ export class GeoEventsService {
   }
 
   async create(template: IGeoEvent): Promise<void> {
-    const deepCopy: IGeoEvent = { ...template, center: { ...template.center } };
+    const deepCopy: IGeoEvent = {
+      ...template,
+      coordinates: { ...template.coordinates },
+    };
     this.mockGeoEvents$.next([...this.mockGeoEvents$.value, deepCopy]);
   }
 
