@@ -13,7 +13,7 @@ export interface IGeoEvent {
   /** An as short as possible title */
   title: string;
   /** To be used for zooming and placing a marker */
-  center: ICoordinates;
+  coordinates: ICoordinates;
   /** The moment at which this event started */
   timestamp: Date;
 

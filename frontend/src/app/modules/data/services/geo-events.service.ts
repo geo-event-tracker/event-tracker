@@ -9,7 +9,7 @@ export class GeoEventsService {
   private readonly mockGeoEvents$ = new BehaviorSubject<IGeoEvent[]>([
     {
       id: '0',
-      center: {
+      coordinates: {
         latitude: 48.858093,
         longitude: 2.294694,
       },
@@ -20,7 +20,7 @@ export class GeoEventsService {
       id: '1',
       title: 'End of construction of the Eiffel Tower',
       timestamp: new Date(1887, 3, 1889),
-      center: {
+      coordinates: {
         latitude: 48.858093,
         longitude: 2.294694,
       },
@@ -40,7 +40,10 @@ export class GeoEventsService {
   }
 
   async create(template: IGeoEvent): Promise<void> {
-    const deepCopy: IGeoEvent = { ...template, center: { ...template.center } };
+    const deepCopy: IGeoEvent = {
+      ...template,
+      coordinates: { ...template.coordinates },
+    };
     this.mockGeoEvents$.next([...this.mockGeoEvents$.value, deepCopy]);
   }
 
@@ -48,5 +51,23 @@ export class GeoEventsService {
     this.mockGeoEvents$.next(
       this.mockGeoEvents$.value.filter((geoEvent) => geoEvent.id !== id)
     );
+  }
+
+  /** Overwrites the event and returns the previous value upon success */
+  async update(template: IGeoEvent): Promise<IGeoEvent> {
+    const previousValue = this.mockGeoEvents$.value.find(
+      (geoEvent) => geoEvent.id === template.id
+    );
+
+    if (!previousValue) {
+      throw new Error(`No GeoEvent with ID ${JSON.stringify(template.id)}`);
+    }
+
+    this.mockGeoEvents$.next(
+      this.mockGeoEvents$.value.map((geoEvent) =>
+        geoEvent.id === template.id ? template : geoEvent
+      )
+    );
+    return previousValue;
   }
 }
