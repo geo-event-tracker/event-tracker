@@ -46,6 +46,8 @@ export class GeoEventsService {
   }
 
   async delete(id: IGeoEvent['id']): Promise<void> {
-    this.mockGeoEvents$.value.filter((geoEvent) => geoEvent.id !== id);
+    this.mockGeoEvents$.next(
+      this.mockGeoEvents$.value.filter((geoEvent) => geoEvent.id !== id)
+    );
   }
 }
