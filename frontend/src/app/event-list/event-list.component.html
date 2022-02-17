@@ -1,3 +1,13 @@
 <div id="event-list">
-  <div>event-list placeholder</div>
+  <div *ngFor="let geoEvent of geoEvents$ | async">
+    <h4>
+      <span>{{ geoEvent.title }}</span>
+      <small>
+        |
+        {{ geoEvent.center.latitude }},
+        {{ geoEvent.center.longitude }}
+      </small>
+    </h4>
+    {{ geoEvent.timestamp }}
+  </div>
 </div>
