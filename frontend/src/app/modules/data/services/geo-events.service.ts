@@ -39,8 +39,9 @@ export class GeoEventsService {
     );
   }
 
-  async create(geoEvent: IGeoEvent): Promise<void> {
-    this.mockGeoEvents$.next([...this.mockGeoEvents$.value, geoEvent]);
+  async create(template: IGeoEvent): Promise<void> {
+    const deepCopy: IGeoEvent = { ...template, center: { ...template.center } };
+    this.mockGeoEvents$.next([...this.mockGeoEvents$.value, deepCopy]);
   }
 
   async delete(id: IGeoEvent['id']): Promise<void> {
