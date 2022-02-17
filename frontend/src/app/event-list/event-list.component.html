@@ -1,15 +1,15 @@
 <div id="event-list">
-  <div *ngFor="let geoEvent of geoEvents$;">
+  <div *ngFor="let geoEvent of geoEvents$ | async;">
     <div id="geo-event-{{ geoEvent.id }}" class="event-card">
 
       <img src="assets/location-pin.svg" />
 
       <div class="event-card-content">
         <div>
-          {{ geoEvent.timePassed }} | <span>2022.02.15 15:30</span> | <span>1 Street, City Name, Country</span>
+          {{ getTimePassed(geoEvent.timestamp) }} ago | <span>{{ formatDate(geoEvent.timestamp) }}</span> | <span>{{ getAddress(geoEvent) }}</span>
         </div>
         <div>
-          A short description on what this event is
+          {{ geoEvent.title.length < 50 ? geoEvent.title : geoEvent.title.substring(0, 50) + '...' }}
         </div>
       </div>
 
