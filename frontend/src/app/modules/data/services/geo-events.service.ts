@@ -49,4 +49,22 @@ export class GeoEventsService {
       this.mockGeoEvents$.value.filter((geoEvent) => geoEvent.id !== id)
     );
   }
+
+  /** Overwrites the event and returns the previous value upon success */
+  async update(template: IGeoEvent): Promise<IGeoEvent> {
+    const previousValue = this.mockGeoEvents$.value.find(
+      (geoEvent) => geoEvent.id === template.id
+    );
+
+    if (!previousValue) {
+      throw new Error(`No GeoEvent with ID ${JSON.stringify(template.id)}`);
+    }
+
+    this.mockGeoEvents$.next(
+      this.mockGeoEvents$.value.map((geoEvent) =>
+        geoEvent.id === template.id ? template : geoEvent
+      )
+    );
+    return previousValue;
+  }
 }
