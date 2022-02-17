@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
+import { isDefined } from 'src/app/util/filter-callbacks';
 import { IGeoEvent } from '~model/interfaces/geo-event.interface';
 
 @Injectable({
