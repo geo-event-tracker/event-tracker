@@ -1,7 +1,7 @@
-name: Deploy on PR
+name: Deploy on main
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -21,7 +21,7 @@ jobs:
               - 'frontend/**'
   
   deployPRFrontendDraft:
-    name: Deploy front-end draft to Netlify
+    name: Deploy front-end to Netlify
     needs: fileChanges
     if: needs.fileChanges.outputs.run_job == 'true'
     runs-on: ubuntu-latest
@@ -47,10 +47,9 @@ jobs:
           publish-dir: './frontend/dist/event-tracker-frontend'
           deploy-message: "Deploy from GitHub Actions"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: false
+          production-deploy: true
           enable-commit-comment: false
           enable-commit-status: false
-          alias: deploy-preview-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

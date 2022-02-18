@@ -1,9 +1,12 @@
-name: Deploy on main
+name: Tests
 
 on:
   push:
     branches:
-    - main
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   fileChanges:
@@ -37,19 +40,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build:ci -w frontend
-
-      - name: Deploy to Netlify
-        id: netlify-deploy
-        uses: nwtgck/actions-netlify@v1.2
-        with:
-          publish-dir: './frontend/dist/event-tracker-frontend'
-          deploy-message: "Deploy from GitHub Actions"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: true
-          enable-commit-comment: false
-          enable-commit-status: false
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Run tests
+        run: npm run test -w frontend
