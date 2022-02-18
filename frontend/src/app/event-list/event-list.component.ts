@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import datetimeUtils from '../utils/datetime';
 
 // TODO: replace by GeoEventService, blocked by #9
 const createMockGeoEvent = (props: any) => ({
@@ -39,37 +40,13 @@ export class EventListComponent implements OnInit {
   }
 
   getTimePassed = (timestamp: Date) => {
-    let currentTime = new Date().getTime() / 1000;
-    let eventTime = timestamp.getTime() / 1000;
-
-    let diff = currentTime - eventTime;
-
-    if (diff < 60) return `${diff.toFixed(0)} second${diff >= 2 ? 's' : ''}`;
-
-    diff = diff / 60;
-
-    if (diff < 60 ) return `${diff.toFixed(0)} minute${diff >= 2 ? 's' : ''}`;
-
-    diff = diff / 60;
-
-    if (diff < 24 ) return `${diff.toFixed(0)} hour${diff >= 2 ? 's' : ''}`;
-
-    diff = diff / 24;
-
-    return `${diff.toFixed(0)} day${diff >= 2 ? 's' : ''}`;
+    return datetimeUtils.getTimePassed(timestamp)
   }
 
   getAddress = (geoEvent: any) => {
     const { address, center } = geoEvent;
     if (address) return address;
     return `${center.longitude} ${center.latitude}`
-  }
-
-  /**
-   * Format a Date object into a "yyyy.mm.dd h:mm" string
-   */
-  formatDate = (d: Date) => {
-    return d.getDate() + "." + (d.getMonth()+1) + "." + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();
   }
 
   geoEvents$ = geoEventMocks.asObservable();

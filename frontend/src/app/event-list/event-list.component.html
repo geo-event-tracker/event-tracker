@@ -6,7 +6,7 @@
 
       <div class="event-card-content">
         <div>
-          {{ getTimePassed(geoEvent.timestamp) }} ago | <span>{{ formatDate(geoEvent.timestamp) }}</span> | <span>{{ getAddress(geoEvent) }}</span>
+          {{ getTimePassed(geoEvent.timestamp) }} ago | <span>{{ geoEvent.timestamp | date:'yyyy.MM.dd h:mm' }}</span> | <span>{{ getAddress(geoEvent) }}</span>
         </div>
         <div>
           {{ geoEvent.title.length < 50 ? geoEvent.title : geoEvent.title.substring(0, 50) + '...' }}
