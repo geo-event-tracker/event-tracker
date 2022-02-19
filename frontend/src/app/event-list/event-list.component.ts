@@ -24,8 +24,7 @@ export class EventListComponent implements OnInit {
   }
 
   getAddress = ({ address, coordinates }: IGeoEvent) => {
-    if (address) return address;
-    return `${coordinates.longitude} ${coordinates.latitude}`
+    return address || `${coordinates.longitude} ${coordinates.latitude}`;
   }
 
 }
