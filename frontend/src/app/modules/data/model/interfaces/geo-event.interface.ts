@@ -16,7 +16,7 @@ export interface IGeoEvent {
   coordinates: ICoordinates;
   /** The moment at which this event started */
   timestamp: Date;
-  address: string
+  address?: string
 
   /** Short text that can replace a title, to be shown in list views */
   // pitch: string;

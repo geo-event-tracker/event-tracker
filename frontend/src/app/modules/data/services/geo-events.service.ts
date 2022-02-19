@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IGeoEvent } from '~model/interfaces/geo-event.interface';
 
-const createMockGeoEvent = (props: any) => ({
+const createMockGeoEvent = (props: Partial<IGeoEvent>): IGeoEvent => ({
   id: '0',
   coordinates: {
     latitude: 48.858093,
@@ -10,7 +10,7 @@ const createMockGeoEvent = (props: any) => ({
   },
   title: 'Start of construction of the Eiffel Tower',
   timestamp: new Date(2022, 1, 15, 20, 50),
-  ...props
+  ...props,
 })
 
 const today = new Date();
@@ -20,14 +20,14 @@ const today = new Date();
 })
 export class GeoEventsService {
   private readonly mockGeoEvents$ = new BehaviorSubject<IGeoEvent[]>([
-  createMockGeoEvent({ id: 0, address: '1 Street, City Name, Country' }),
-  createMockGeoEvent({ id: 1, timestamp: new Date(today.getTime() - 1000 * 24) }),
-  createMockGeoEvent({ id: 2, timestamp: new Date(today.getTime() - 1000 * 60 * 1) }),
-  createMockGeoEvent({ id: 3, timestamp: new Date(today.getTime() - 1000 * 60 * 50) }),
-  createMockGeoEvent({ id: 4, timestamp: new Date(today.getTime() - 1000 * 60 * 60) }),
-  createMockGeoEvent({ id: 5, timestamp: new Date(today.getTime() - 1000 * 60 * 60 * 23) }),
-  createMockGeoEvent({ id: 6, timestamp: new Date(today.getTime() - 1000 * 60 * 60 * 24 * 10) }),
-  createMockGeoEvent({ id: 7, title: 'some stupidly long title wow its so long and useless why would ppl fill in something this long and then we have to deal with them ahhhhhhhhhhhhh'}),
+  createMockGeoEvent({ id: '0', address: '1 Street, City Name, Country' }),
+  createMockGeoEvent({ id: '1', timestamp: new Date(today.getTime() - 1000 * 24) }),
+  createMockGeoEvent({ id: '2', timestamp: new Date(today.getTime() - 1000 * 60 * 1) }),
+  createMockGeoEvent({ id: '3', timestamp: new Date(today.getTime() - 1000 * 60 * 50) }),
+  createMockGeoEvent({ id: '4', timestamp: new Date(today.getTime() - 1000 * 60 * 60) }),
+  createMockGeoEvent({ id: '5', timestamp: new Date(today.getTime() - 1000 * 60 * 60 * 23) }),
+  createMockGeoEvent({ id: '6', timestamp: new Date(today.getTime() - 1000 * 60 * 60 * 24 * 10) }),
+  createMockGeoEvent({ id: '7', title: 'some stupidly long title wow its so long and useless why would ppl fill in something this long and then we have to deal with them ahhhhhhhhhhhhh'}),
 ]);
 
   constructor() {}
