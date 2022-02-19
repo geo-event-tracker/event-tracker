@@ -15,6 +15,9 @@ jobs:
       run_job: ${{ steps.changes.outputs.frontend }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
       - name: check modified files
         uses: dorny/paths-filter@v2.10.2
         id: changes
