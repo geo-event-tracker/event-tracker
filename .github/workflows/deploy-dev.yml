@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-        
+
       - name: check modified files
         uses: dorny/paths-filter@v2.10.2
         id: changes
@@ -44,15 +44,10 @@ jobs:
         run: npm run build:ci -w frontend
 
       - name: Deploy to Netlify
-        id: netlify-deploy
-        uses: nwtgck/actions-netlify@v1.2
+        uses: jsmrcaga/action-netlify-deploy@master
         with:
-          publish-dir: './frontend/dist/event-tracker-frontend'
-          deploy-message: "Deploy from GitHub Actions"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: true
-          enable-commit-comment: false
-          enable-commit-status: false
-        env:
+          build_directory: './frontend/dist/event-tracker-frontend'
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_MESSAGE: "Prod deploy ${{ github.ref }}"
+          NETLIFY_DEPLOY_TO_PROD: true
