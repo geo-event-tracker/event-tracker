@@ -1,6 +1,9 @@
-name: Deploy on PR
+name: Tests
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -20,8 +23,8 @@ jobs:
             frontend:
               - 'frontend/**'
   
-  deployPRFrontendDraft:
-    name: Deploy front-end draft to Netlify
+  runAllTests:
+    name: Run all tests
     needs: fileChanges
     if: needs.fileChanges.outputs.run_job == 'true'
     runs-on: ubuntu-latest
@@ -37,20 +40,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build:ci -w frontend
-
-      - name: Deploy to Netlify
-        id: netlify-deploy
-        uses: nwtgck/actions-netlify@v1.2
-        with:
-          publish-dir: './frontend/dist/event-tracker-frontend'
-          deploy-message: "Deploy from GitHub Actions"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: false
-          enable-commit-comment: false
-          enable-commit-status: false
-          alias: deploy-preview-${{ github.event.number }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Run tests
+        run: npm run test:ci -w frontend
