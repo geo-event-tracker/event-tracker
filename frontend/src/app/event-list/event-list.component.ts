@@ -11,12 +11,11 @@ import datetimeUtils from '../utils/datetime';
 })
 export class EventListComponent implements OnInit {
 
-  public geoEvents$: Observable<IGeoEvent[]> | null = null;
+  readonly geoEvents$ = this.geoEventsService.getAll();
 
-  constructor(private geoEventsService: GeoEventsService) { }
+  constructor(private readonly geoEventsService: GeoEventsService) { }
 
   ngOnInit(): void {
-    this.geoEvents$ = this.geoEventsService.getAll();
   }
 
   getTimePassed = (timestamp: Date) => {
