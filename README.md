@@ -1,5 +1,7 @@
 # Event Tracker
 
+View live <https://geo-event-tracker.netlify.app>
+
 ## Setup
 
 ```bash

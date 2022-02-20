@@ -1,7 +1,7 @@
-name: Deploy on PR
+name: Deploy on main
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -12,6 +12,9 @@ jobs:
       run_job: ${{ steps.changes.outputs.frontend }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
       - name: check modified files
         uses: dorny/paths-filter@v2.10.2
         id: changes
@@ -21,7 +24,7 @@ jobs:
               - 'frontend/**'
   
   deployPRFrontendDraft:
-    name: Deploy front-end draft to Netlify
+    name: Deploy front-end to Netlify
     needs: fileChanges
     if: needs.fileChanges.outputs.run_job == 'true'
     runs-on: ubuntu-latest
@@ -45,12 +48,11 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: './frontend/dist/event-tracker-frontend'
-          deploy-message: "Deploy from GitHub Actions"
+          deploy-message: "Production deploy on main from GitHub Actions"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: false
+          production-deploy: true
           enable-commit-comment: false
           enable-commit-status: false
-          alias: deploy-preview-${{ github.event.number }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
