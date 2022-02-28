@@ -21,7 +21,8 @@
     "lib": ["es2020", "dom"],
     "paths": {
       "~model/*": ["./src/app/modules/data/model/*"]
-    }
+    },
+    "exactOptionalPropertyTypes": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
