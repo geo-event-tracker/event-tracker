@@ -9,13 +9,13 @@ import { ICoordinates } from './coordinates.interface'
  */
 export interface IGeoEvent {
   /** Database identifier */
-  id: ID;
+  id: ID
   /** An as short as possible title */
-  title: string;
+  title: string
   /** To be used for zooming and placing a marker */
-  coordinates: ICoordinates;
+  coordinates: ICoordinates
   /** The moment at which this event started */
-  timestamp: Date;
+  timestamp: Date
   address?: string
 
   /** Short text that can replace a title, to be shown in list views */
