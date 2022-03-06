@@ -28,6 +28,9 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# Visual studio code extensions
+/apollo.config.js
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/

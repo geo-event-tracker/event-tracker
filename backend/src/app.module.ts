@@ -10,7 +10,7 @@ import { GeoEventResolver } from './resolvers/geo-event.resolver'
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: pjoin(__dirname, 'schema.gql'),
+      autoSchemaFile: pjoin(__dirname, '../../../src/model/schema.gql'),
       sortSchema: true,
       installSubscriptionHandlers: true,
       subscriptions: {
