@@ -1,6 +1,5 @@
 import { Field, Float, ObjectType } from '@nestjs/graphql'
-import { ICoordinates } from '../interface/coordinates.interface'
-
+import { ICoordinates } from '~model/interfaces/coordinates.interface'
 @ObjectType()
 export class Coordinates implements ICoordinates {
   @Field(() => Float)

@@ -20,7 +20,7 @@
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "paths": {
-      "~model/*": ["./src/app/modules/data/model/*"]
+      "~model/*": ["./src/app/modules/data/model/*", "../common/model/*"]
     },
     "exactOptionalPropertyTypes": true
   },

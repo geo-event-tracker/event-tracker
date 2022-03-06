@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { IGeoEvent } from '../interface/geo-event.interface'
+import { IGeoEvent } from '~model/interfaces/geo-event.interface'
 import { Coordinates } from './coordinates'
 
 @ObjectType()
