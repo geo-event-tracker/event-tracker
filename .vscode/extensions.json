@@ -1,7 +1,6 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
   "recommendations": [
-    "angular.ng-template",
+    "aaron-bond.better-comments",
     "dbaeumer.vscode-eslint",
     "tyriar.sort-lines",
     "Swellaby.workspace-config-plus"
